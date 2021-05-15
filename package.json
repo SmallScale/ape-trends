@@ -5,9 +5,11 @@
   "keywords": [
     "crypto"
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "compile": "tsc",
+    "build": "tsc",
     "lint": "eslint . --ext .ts --fix --max-warnings 0"
   },
   "repository": {
