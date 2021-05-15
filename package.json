@@ -1,8 +1,10 @@
 {
   "name": "ape-trends",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "Get some bad indicators for crypto currencies from social media platforms to make wrong decisions",
+  "keywords": [
+    "crypto"
+  ],
   "scripts": {
     "test": "jest",
     "compile": "tsc",
@@ -12,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/SmallScale/ape-trends.git"
   },
-  "author": "",
+  "author": "https://github.com/SmallScale",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SmallScale/ape-trends/issues"
