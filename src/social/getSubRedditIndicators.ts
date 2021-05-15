@@ -1,6 +1,11 @@
 import axios from "axios";
 import { CryptoInfo } from "../crypto";
-import { getCryptoIndicatorMetrics, Indicator } from "../utils";
+import {
+  depthToNumber,
+  getCryptoIndicatorMetrics,
+  getOptions,
+  Indicator,
+} from "../utils";
 
 export type RedditPostsResponse = {
   data: {
@@ -29,6 +34,7 @@ export const getSubRedditIndicators = async (
       data: { children },
     },
   } = await axios.get<RedditPostsResponse>(targetURL);
+  const options = getOptions();
 
   children = children.filter((child) => !child.data.distinguished);
   children = children.filter((child) => !child.is_video);
@@ -40,6 +46,12 @@ export const getSubRedditIndicators = async (
     )
   );
 
+  if (options?.limits?.depth) {
+    const endOfArray =
+      Math.floor(children.length * depthToNumber(options.limits.depth)) - 1;
+    children = children.slice(0, endOfArray);
+  }
+
   const postIndicators = await Promise.all(
     children.map(async ({ data: { selftext, url } }) => {
       const { data } = await axios.get<RedditCommentsResponse>(
@@ -47,9 +59,16 @@ export const getSubRedditIndicators = async (
       );
       const inputStrings: string[] = [];
 
-      const comments = data[1].data.children
+      let comments = data[1].data.children
         .filter(({ data: { body } }) => !!body)
         .map(({ data: { body } }) => body) as string[];
+
+      if (options?.limits?.depth) {
+        const endOfArray =
+          Math.floor(comments.length * depthToNumber(options.limits.depth)) - 1;
+        comments = comments.slice(0, endOfArray);
+      }
+
       inputStrings.push(selftext, ...comments);
 
       const cryptoIndicatorMetrics = cryptoInfo.map(({ symbol, name }) =>
