@@ -3,7 +3,7 @@ import { IndicatorCollection, Indicator } from ".";
 export const indicatorArrayToIndicatorCollection = (
   indicators: Indicator[]
 ): IndicatorCollection => {
-  let indicatorCollection: IndicatorCollection = {};
+  const indicatorCollection: IndicatorCollection = {};
   indicators.forEach((indicator) => {
     if (indicatorCollection[indicator.name]) {
       indicatorCollection[indicator.name].mentions += indicator.mentions;

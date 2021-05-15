@@ -8,10 +8,10 @@ export const getCryptoIndicatorMetrics = (
   const commentIndicators = inputStrings.map((string) => {
     return indicatorMetricsFromString(string, symbol, name);
   });
-  let mentions: number = 0;
-  let buy: number = 0;
-  let sell: number = 0;
-  let hold: number = 0;
+  let mentions = 0;
+  let buy = 0;
+  let sell = 0;
+  let hold = 0;
 
   commentIndicators.forEach((indicator) => {
     mentions += indicator.mentions;

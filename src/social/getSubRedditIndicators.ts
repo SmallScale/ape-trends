@@ -49,7 +49,7 @@ export const getSubRedditIndicators = async (
 
       const comments = data[1].data.children
         .filter(({ data: { body } }) => !!body)
-        .map(({ data: { body } }) => body);
+        .map(({ data: { body } }) => body) as string[];
       inputStrings.push(selftext, ...comments);
 
       const cryptoIndicatorMetrics = cryptoInfo.map(({ symbol, name }) =>
@@ -57,12 +57,12 @@ export const getSubRedditIndicators = async (
       );
       return cryptoIndicatorMetrics.filter(
         (cryptoIndicatorMetric) => cryptoIndicatorMetric
-      );
+      ) as Indicator[];
     })
   );
 
   const indicators: Indicator[] = [];
-  postIndicators.forEach((i: []) => indicators.push(...i));
+  postIndicators.forEach((indicator) => indicators.push(...indicator));
 
   return indicators;
 };
