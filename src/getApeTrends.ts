@@ -4,6 +4,8 @@ import {
   Indicator,
   indicatorArrayToIndicatorCollection,
   IndicatorCollection,
+  Limits,
+  setOptions,
 } from "./utils";
 
 export type Source = "Reddit";
@@ -11,6 +13,7 @@ export type Source = "Reddit";
 export type Options = {
   sourcesOverride?: Source[];
   cryptoInfoOverride?: CryptoInfo[];
+  limits?: Limits;
 };
 
 /**
@@ -25,6 +28,7 @@ export type Options = {
 export const getApeTrends = async (
   options?: Options
 ): Promise<IndicatorCollection> => {
+  setOptions({ limits: options?.limits });
   const sources: Source[] = options?.sourcesOverride ?? ["Reddit"];
   const cryptoInfo = options?.cryptoInfoOverride ?? (await listAllCrypto());
 
